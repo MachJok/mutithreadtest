@@ -1,0 +1,2 @@
+/usr/bin/ar qc libdiesel.xpl  CMakeFiles/libdiesel.dir/plugin.cpp.o
+/usr/bin/ranlib libdiesel.xpl

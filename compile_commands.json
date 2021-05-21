@@ -1,0 +1,7 @@
+[
+{
+  "directory": "/home/crash/Desktop/Projects/Dev/mutithreadtest",
+  "command": "/usr/bin/c++  -DAPL=0 -DIBM=0 -DLIN=1 -DXPLM200=1 -DXPLM210=1 -DXPLM300=1 -DXPLM301=1 -I/home/crash/Desktop/Projects/Dev/mutithreadtest/libdiesel -I/home/crash/Desktop/Projects/Dev/mutithreadtest/PUBLIC -I/home/crash/Desktop/Projects/Dev/mutithreadtest/XPLSDK303/CHeaders/XPLM -I/home/crash/Desktop/Projects/Dev/mutithreadtest/XPLSDK303/CHeaders/Widgets -I/home/crash/Desktop/Projects/Dev/mutithreadtest/XPLSDK303/CHeaders/Wrappers -I/home/crash/Desktop/Projects/Dev/mutithreadtest/libacfutils/include -I/home/crash/Desktop/Projects/Dev/mutithreadtest/libacfutils/lin64/include   --std=c++14   -o CMakeFiles/libdiesel.dir/plugin.cpp.o -c /home/crash/Desktop/Projects/Dev/mutithreadtest/plugin.cpp",
+  "file": "/home/crash/Desktop/Projects/Dev/mutithreadtest/plugin.cpp"
+}
+]
