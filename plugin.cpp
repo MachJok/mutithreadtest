@@ -3,8 +3,6 @@
 #include "acfutils/log.h"
 #include "acfutils/thread.h"
 
-double args=1;
-
 static void
 log_dbg_string(const char *str)
 {
@@ -15,7 +13,7 @@ static float
 floop(float elapsed1, float elapsed2, int counter, void *refcon);
 
 static void
-new_main(double *args)
+new_main(void *args)
 {
     
 };
@@ -36,7 +34,7 @@ PLUGIN_API int XPluginStart
     dcr_init();
     
     thread_t my_thread;
-    thread_create(&my_thread, new_main(args), NULL);
+    thread_create(&my_thread, new_main, NULL);
     if (!thread_create(&my_thread, new_main, NULL))
     fprintf(stderr, "thread create failed!\n");
     mutex_init(&state_lock);
