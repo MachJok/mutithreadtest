@@ -6,7 +6,7 @@ cmake_minimum_required(VERSION 3.0)
 # Define your project name here. You can build multiple projects from
 # a single cmake file, or you can created nested project hierarchies,
 # each in its own folder.
-project(LZ-129)
+project(mttest)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 # set(name value...) is just setting a variable, nothing more.
 # There's nothing magical about the 'SRC' and 'HDR' names, we're
@@ -33,18 +33,18 @@ list(SORT ALL_SRC)
 # if you list all sources and headers together in one big blob. It
 # understands what is C and what is C++ (based on file extension and
 # automatically picks the correct compiler & linker invocations.
-add_library(LZ-129 ${ALL_SRC})
+add_library(libdiesel ${ALL_SRC})
 
 # Here we configure where the compilers will look for extra include files.
 # Again, feel free to use the ${VARNAME} expansions in these strings if you
 # need more environment-specific control over where stuff is (otherwise the
 # paths are relative to where cmake is invoked).
-include_directories(LZ-129 PUBLIC
+include_directories(libdiesel PUBLIC
     "XPLSDK303/CHeaders/XPLM"
     "XPLSDK303/CHeaders/Widgets"
     "XPLSDK303/CHeaders/Wrappers"
-    "libacfutils-redistv0.29/include"
-    "libacfutils-redistv0.29/lin64/include"
+    "libacfutils/include"
+    "libacfutils/lin64/include"
     )
 
 # You can add language-specific options by manipulating CMAKE_C_FLAGS for
@@ -86,12 +86,26 @@ endif()
 # resulting binary.
 #find_library(FOO_LIBRARY "foo")
 
+# here ${LIBACFUTILS} points at the top-level directory
+# of the libacfutils-redist package
+
+set(LIBACFUTILS "${CMAKE_SOURCE_DIR}/libacfutils")
+
+file(GLOB LIBACFUTILS_LIBS ${LIBACFUTILS}/${ARCH}/lib/*.a)
+
+target_link_libraries(libdiesel
+    ${LIBACFUTILS_LIBS}      
+)
+target_link_libraries(libdiesel m)
+
+
+
 # You can also manually provide a search path
-find_library(BAR_LIBRARY "bar" "/search/for/it/here")
+# find_library(BAR_LIBRARY "bar" "/search/for/it/here")
 
 # Alternatively, when using a static library, you can literally just use
 # the exact library file as a linker input:
-set(BAZ_STATIC_LIBRARY "baz/libbaz.a")
+# set(BAZ_STATIC_LIBRARY "baz/libbaz.a")
 
 # This associates the libraries we want linked into the project.
 # Careful: order matters in target_link_libraries. Dependencies must be
@@ -106,28 +120,28 @@ set(BAZ_STATIC_LIBRARY "baz/libbaz.a")
 
 # This avoids prepending or appending any `lib' or `-<version>' extensions
 # to our build product. We want to control the output filename exactly.
-set_target_properties(LZ-129 PROPERTIES PREFIX "")
-set_target_properties(LZ-129 PROPERTIES SUFFIX "")
-set_target_properties(LZ-129 PROPERTIES OUTPUT_NAME
-    "LZ-129.xpl")
+set_target_properties(libdiesel PROPERTIES PREFIX "")
+set_target_properties(libdiesel PROPERTIES SUFFIX "")
+set_target_properties(libdiesel PROPERTIES OUTPUT_NAME
+    "libdiesel.xpl")
 
 # Where does our product go? Place it one level above our source directory
 # into a directory name win_x64, mac_x64 or lin_x64, depending on the
 # target host platform.
 if(WIN32)
-	set_target_properties(LZ-129 PROPERTIES
+	set_target_properties(libdiesel PROPERTIES
 	    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/../win_x64" )
-	set_target_properties(LZ-129 PROPERTIES
+	set_target_properties(libdiesel PROPERTIES
 	    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/../win_x64" )
 elseif(APPLE)
-	set_target_properties(LZ-129 PROPERTIES
+	set_target_properties(libdiesel PROPERTIES
 	    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/../mac_x64" )
-	set_target_properties(LZ-129 PROPERTIES
+	set_target_properties(libdiesel PROPERTIES
 	    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/../mac_x64" )
 else()
-	set_target_properties(LZ-129 PROPERTIES
+	set_target_properties(libdiesel PROPERTIES
 	    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/../lin_x64" )
-	set_target_properties(LZ-129 PROPERTIES
+	set_target_properties(libdiesel PROPERTIES
 	    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/../lin_x64" )
 endif()
 
