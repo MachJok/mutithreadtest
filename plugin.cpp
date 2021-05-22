@@ -11,7 +11,7 @@ log_dbg_string(const char *str)
 
 static float 
 floop(float elapsed1, float elapsed2, int counter, void *refcon);
-
+auto args = 1.0;
 static void
 new_main(void *args)
 {
@@ -46,7 +46,7 @@ PLUGIN_API int XPluginStart
 
 PLUGIN_API int XPluginEnable(void)
 {
-    new_main();
+    new_main(&args);
     return 1;
 }
 
